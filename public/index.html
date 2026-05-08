@@ -7,138 +7,164 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <div class="logo">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+  <!-- ── Login Screen ── -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
         </svg>
-        <span>MileageHC</span>
       </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- Stats Bar -->
-    <section class="stats-bar">
-      <div class="stat-card">
-        <div class="stat-value" id="stat-total-miles">0.0</div>
-        <div class="stat-label">Total Miles</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="stat-total-trips">0</div>
-        <div class="stat-label">Completed Trips</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="stat-active-trips">0</div>
-        <div class="stat-label">Active Trips</div>
-      </div>
-    </section>
-
-    <!-- New Trip Form -->
-    <section class="section">
-      <div class="section-header">
-        <h2>Start a New Trip</h2>
-      </div>
-      <form id="new-trip-form" class="trip-form">
-
-        <!-- Common fields -->
-        <div class="form-row">
-          <div class="form-group">
-            <label for="trip-name">Trip Name *</label>
-            <input type="text" id="trip-name" placeholder="e.g. Work commute, Client visit" required />
-          </div>
-          <div class="form-group">
-            <label for="trip-description">Description (optional)</label>
-            <input type="text" id="trip-description" placeholder="Notes about this trip" />
-          </div>
+      <h1 class="login-title">MileageHC</h1>
+      <p class="login-sub">Sign in to track your trips</p>
+      <form id="login-form" autocomplete="on">
+        <div class="form-group">
+          <label for="login-username">Username</label>
+          <input type="text" id="login-username" autocomplete="username" placeholder="Enter your name" />
         </div>
-
-        <!-- Mode toggle -->
-        <div class="mode-toggle">
-          <button class="mode-btn active" data-mode="odometer" type="button">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Odometer
-          </button>
-          <button class="mode-btn" data-mode="address" type="button">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            By Address
-          </button>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" autocomplete="current-password" placeholder="Enter your password" />
         </div>
-
-        <!-- Odometer panel -->
-        <div id="panel-odometer" class="mode-panel">
-          <div class="form-group form-group--narrow">
-            <label for="start-mileage">Start Mileage (odometer) *</label>
-            <input type="number" id="start-mileage" placeholder="e.g. 45230.5" step="0.1" min="0" />
-          </div>
-        </div>
-
-        <!-- Address panel -->
-        <div id="panel-address" class="mode-panel hidden">
-          <div id="maps-unavailable" class="maps-notice hidden">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Google Maps API key not configured — add <code>GOOGLE_MAPS_API_KEY</code> to your Render environment variables.
-          </div>
-          <div id="address-inputs">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="from-address">From Address *</label>
-                <input type="text" id="from-address" placeholder="Starting address or place" autocomplete="off" />
-              </div>
-              <div class="form-group">
-                <label for="to-address">To Address *</label>
-                <input type="text" id="to-address" placeholder="Destination address or place" autocomplete="off" />
-              </div>
-            </div>
-            <div class="address-actions">
-              <button type="button" id="get-distance-btn" class="btn btn--maps">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Get Distance from Google Maps
-              </button>
-              <div id="distance-result" class="distance-result hidden">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <strong id="dist-miles"></strong> miles &nbsp;·&nbsp; ~<span id="dist-duration"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-footer">
-          <button type="submit" class="btn btn--primary" id="submit-btn">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            <span id="submit-label">Start Trip</span>
-          </button>
-          <div id="form-error" class="form-error hidden"></div>
-        </div>
-
+        <button type="submit" class="btn btn--primary btn--full">Sign In</button>
+        <div id="login-error" class="form-error hidden"></div>
       </form>
-    </section>
+    </div>
+  </div>
 
-    <!-- Active Trips -->
-    <section class="section">
-      <div class="section-header">
-        <h2>Active Trips</h2>
-        <span class="badge badge--active" id="active-count">0</span>
-      </div>
-      <div id="active-trips" class="trips-grid">
-        <div class="empty-state">No active trips. Start one above!</div>
-      </div>
-    </section>
+  <!-- ── App ── -->
+  <div id="app-content" class="hidden">
 
-    <!-- Completed Trips -->
-    <section class="section">
-      <div class="section-header">
-        <h2>Trip History</h2>
-        <span class="badge" id="history-count">0</span>
+    <header>
+      <div class="header-inner">
+        <div class="logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>MileageHC</span>
+        </div>
+        <div class="header-user">
+          <span class="header-username" id="header-username"></span>
+          <button class="btn btn--ghost btn--sm" id="logout-btn">Sign Out</button>
+        </div>
       </div>
-      <div id="completed-trips" class="trips-list">
-        <div class="empty-state">No completed trips yet.</div>
-      </div>
-    </section>
-  </main>
+    </header>
 
-  <!-- End Trip Modal -->
+    <main>
+      <!-- Stats Bar -->
+      <section class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total-miles">0.0</div>
+          <div class="stat-label">Total Miles</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total-trips">0</div>
+          <div class="stat-label">Completed Trips</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-active-trips">0</div>
+          <div class="stat-label">Active Trips</div>
+        </div>
+      </section>
+
+      <!-- New Trip Form -->
+      <section class="section">
+        <div class="section-header"><h2>Start a New Trip</h2></div>
+        <form id="new-trip-form" class="trip-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="trip-name">Trip Name *</label>
+              <input type="text" id="trip-name" placeholder="e.g. Work commute, Client visit" />
+            </div>
+            <div class="form-group">
+              <label for="trip-description">Description (optional)</label>
+              <input type="text" id="trip-description" placeholder="Notes about this trip" />
+            </div>
+          </div>
+
+          <div class="mode-toggle">
+            <button class="mode-btn active" data-mode="odometer" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Odometer
+            </button>
+            <button class="mode-btn" data-mode="address" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              By Address
+            </button>
+          </div>
+
+          <div id="panel-odometer" class="mode-panel">
+            <div class="form-group form-group--narrow">
+              <label for="start-mileage">Start Mileage (odometer) *</label>
+              <input type="number" id="start-mileage" placeholder="e.g. 45230.5" step="0.1" min="0" />
+            </div>
+          </div>
+
+          <div id="panel-address" class="mode-panel hidden">
+            <div id="maps-unavailable" class="maps-notice hidden">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Google Maps API key not configured — add <code>GOOGLE_MAPS_API_KEY</code> to Render environment variables.
+            </div>
+            <div id="address-inputs">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="from-address">From Address *</label>
+                  <input type="text" id="from-address" placeholder="Starting address or place" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                  <label for="to-address">To Address *</label>
+                  <input type="text" id="to-address" placeholder="Destination address or place" autocomplete="off" />
+                </div>
+              </div>
+              <div class="address-actions">
+                <button type="button" id="get-distance-btn" class="btn btn--maps">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Get Distance from Google Maps
+                </button>
+                <div id="distance-result" class="distance-result hidden">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <strong id="dist-miles"></strong> miles &nbsp;·&nbsp; ~<span id="dist-duration"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" class="btn btn--primary" id="submit-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span id="submit-label">Start Trip</span>
+            </button>
+            <div id="form-error" class="form-error hidden"></div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Active Trips -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Active Trips</h2>
+          <span class="badge badge--active" id="active-count">0</span>
+        </div>
+        <div id="active-trips" class="trips-grid">
+          <div class="empty-state">No active trips. Start one above!</div>
+        </div>
+      </section>
+
+      <!-- Completed Trips -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Trip History</h2>
+          <span class="badge" id="history-count">0</span>
+        </div>
+        <div id="completed-trips" class="trips-list">
+          <div class="empty-state">No completed trips yet.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ── End Trip Modal ── -->
   <div id="end-modal" class="modal-overlay hidden">
     <div class="modal">
       <div class="modal-header">
@@ -162,6 +188,31 @@
       <div class="modal-footer">
         <button class="btn btn--ghost" id="modal-cancel">Cancel</button>
         <button class="btn btn--success" id="modal-confirm">End Trip</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Change Password Modal ── -->
+  <div id="changepw-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Set Your Password</h3>
+      </div>
+      <div class="modal-body">
+        <p class="modal-detail" style="color:var(--text)">Welcome! Please set a personal password before continuing.</p>
+        <div class="form-group">
+          <label for="new-password">New Password <span style="color:var(--text-muted);font-weight:400">(min 6 characters)</span></label>
+          <input type="password" id="new-password" autocomplete="new-password" placeholder="Choose a password" />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" autocomplete="new-password" placeholder="Repeat your password" />
+        </div>
+        <div id="changepw-error" class="form-error hidden"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--ghost" id="changepw-signout">Sign Out</button>
+        <button class="btn btn--primary" id="changepw-confirm">Set Password</button>
       </div>
     </div>
   </div>
