@@ -74,8 +74,32 @@ app.post('/api/auth/change-password', requireAuth, async (req, res) => {
 });
 
 /* ── Config (public) ── */
-app.get('/api/config', (req, res) => {
-  res.json({ mapsApiKey: process.env.GOOGLE_MAPS_API_KEY || null });
+// Cache Maps health check for 5 min so we don't ping Google on every page load
+let mapsHealthCache = { ok: false, ts: 0 };
+
+async function mapsApiWorking() {
+  const key = process.env.GOOGLE_MAPS_API_KEY;
+  if (!key) return false;
+  const now = Date.now();
+  if (now - mapsHealthCache.ts < 5 * 60 * 1000) return mapsHealthCache.ok;
+  try {
+    const r = await fetch(
+      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=test&destinations=test&key=${key}`
+    );
+    const d = await r.json();
+    const ok = d.status !== 'REQUEST_DENIED';
+    mapsHealthCache = { ok, ts: now };
+    return ok;
+  } catch {
+    mapsHealthCache = { ok: false, ts: now };
+    return false;
+  }
+}
+
+app.get('/api/config', async (req, res) => {
+  const key = process.env.GOOGLE_MAPS_API_KEY;
+  const working = key ? await mapsApiWorking() : false;
+  res.json({ mapsApiKey: working ? key : null, mapsError: key && !working ? 'billing_disabled' : null });
 });
 
 /* ── Distance via Google Maps ── */

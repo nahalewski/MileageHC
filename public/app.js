@@ -122,7 +122,12 @@ async function initMaps() {
   try {
     const cfg = await apiFetch('/api/config');
     if (!cfg.mapsApiKey) {
-      document.getElementById('maps-unavailable').classList.remove('hidden');
+      const notice = document.getElementById('maps-unavailable');
+      notice.classList.remove('hidden');
+      if (cfg.mapsError === 'billing_disabled') {
+        notice.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Google Maps billing is not enabled. Visit <a href="https://console.cloud.google.com/project/_/billing/enable" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">Google Cloud Console</a> to enable billing, then enable the Maps JavaScript, Places, and Distance Matrix APIs.`;
+      }
       document.getElementById('address-inputs').classList.add('hidden');
       return;
     }
