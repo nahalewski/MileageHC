@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MileageHC — Trip Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>MileageHC</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total-miles">0.0</div>
+        <div class="stat-label">Total Miles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total-trips">0</div>
+        <div class="stat-label">Completed Trips</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-active-trips">0</div>
+        <div class="stat-label">Active Trips</div>
+      </div>
+    </section>
+
+    <!-- New Trip Form -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Start a New Trip</h2>
+      </div>
+      <form id="new-trip-form" class="trip-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="trip-name">Trip Name *</label>
+            <input type="text" id="trip-name" placeholder="e.g. Work commute, Client visit" required />
+          </div>
+          <div class="form-group">
+            <label for="trip-description">Description (optional)</label>
+            <input type="text" id="trip-description" placeholder="e.g. From home to downtown office" />
+          </div>
+          <div class="form-group form-group--narrow">
+            <label for="start-mileage">Start Mileage (odometer) *</label>
+            <input type="number" id="start-mileage" placeholder="e.g. 45230.5" step="0.1" min="0" required />
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Start Trip
+        </button>
+        <div id="form-error" class="form-error hidden"></div>
+      </form>
+    </section>
+
+    <!-- Active Trips -->
+    <section class="section" id="active-section">
+      <div class="section-header">
+        <h2>Active Trips</h2>
+        <span class="badge badge--active" id="active-count">0</span>
+      </div>
+      <div id="active-trips" class="trips-grid">
+        <div class="empty-state">No active trips. Start one above!</div>
+      </div>
+    </section>
+
+    <!-- Completed Trips -->
+    <section class="section" id="history-section">
+      <div class="section-header">
+        <h2>Trip History</h2>
+        <span class="badge" id="history-count">0</span>
+      </div>
+      <div id="completed-trips" class="trips-list">
+        <div class="empty-state">No completed trips yet.</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- End Trip Modal -->
+  <div id="end-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>End Trip</h3>
+        <button class="modal-close" id="modal-close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="modal-trip-name" class="modal-trip-name"></p>
+        <p class="modal-detail">Started at: <strong id="modal-start-mi"></strong> miles</p>
+        <div class="form-group">
+          <label for="end-mileage-input">End Mileage (odometer) *</label>
+          <input type="number" id="end-mileage-input" placeholder="e.g. 45285.2" step="0.1" min="0" required />
+        </div>
+        <div id="modal-preview" class="modal-preview hidden">
+          Distance: <strong id="modal-distance"></strong> miles
+        </div>
+        <div id="modal-error" class="form-error hidden"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--ghost" id="modal-cancel">Cancel</button>
+        <button class="btn btn--success" id="modal-confirm">End Trip</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
