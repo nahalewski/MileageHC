@@ -3,6 +3,7 @@
 #include "../Application.h"
 #include "../CodeBridge/CPPBridge.h"
 #include "../Output/Console.h"
+#include <stdexcept>
 
 namespace GameEngine
 {
