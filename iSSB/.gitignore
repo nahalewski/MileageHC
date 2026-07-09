@@ -1,4 +1,10 @@
 
+# Vendored git-submodule dependencies (SDL, SDL_image, SDL_mixer, SDL_ttf, SDL_gfx,
+# SDL_p2p, PlistCpp). Not committed here - fetch with:
+#   git clone --recursive https://github.com/lufinkey/iSSB
+# or, if already cloned: git submodule update --init --recursive
+/External/
+
 # Xcode files
 xcuserdata/
 xcshareddata/
