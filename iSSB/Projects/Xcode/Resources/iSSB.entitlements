@@ -6,5 +6,11 @@
     <true/>
     <key>com.apple.security.files.user-selected.read-only</key>
     <true/>
+    <!-- needed for local-WiFi peer-to-peer multiplayer (GameEngine::P2PManager / LANP2P_*),
+         which broadcasts/listens for peers on the LAN and connects over a plain TCP socket -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+    <key>com.apple.security.network.server</key>
+    <true/>
 </dict>
 </plist>

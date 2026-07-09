@@ -24,6 +24,13 @@
 	<string>public.app-category.games</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>iSSB uses your local WiFi network to find and connect to nearby players for peer-to-peer multiplayer matches.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_issbp2p._tcp</string>
+		<string>_issbp2p._udp</string>
+	</array>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

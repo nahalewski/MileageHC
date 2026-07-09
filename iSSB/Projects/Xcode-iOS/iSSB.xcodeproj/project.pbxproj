@@ -45,6 +45,7 @@
 		A059AE0C1FDCAF750041E164 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059AD2B1FDCAF750041E164 /* Font.cpp */; };
 		A059AE0D1FDCAF750041E164 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059AD2D1FDCAF750041E164 /* Image.cpp */; };
 		A059AE0E1FDCAF750041E164 /* P2PManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059AD2F1FDCAF750041E164 /* P2PManager.cpp */; };
+		1079BB7DBFAA880F2D25D73A /* P2PTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1804AADE6048F6F8D457EDB7 /* P2PTransport.cpp */; };
 		A059AE0F1FDCAF750041E164 /* PixelIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059AD311FDCAF750041E164 /* PixelIterator.cpp */; };
 		A059AE101FDCAF750041E164 /* PrefManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059AD331FDCAF750041E164 /* PrefManager.cpp */; };
 		A059AE111FDCAF750041E164 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059AD351FDCAF750041E164 /* String.cpp */; };
@@ -430,6 +431,8 @@
 		A059AD2E1FDCAF750041E164 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		A059AD2F1FDCAF750041E164 /* P2PManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2PManager.cpp; sourceTree = "<group>"; };
 		A059AD301FDCAF750041E164 /* P2PManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PManager.h; sourceTree = "<group>"; };
+		1804AADE6048F6F8D457EDB7 /* P2PTransport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2PTransport.cpp; sourceTree = "<group>"; };
+		D71E141E3FE09BB754DFCF5E /* P2PTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PTransport.h; sourceTree = "<group>"; };
 		A059AD311FDCAF750041E164 /* PixelIterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelIterator.cpp; sourceTree = "<group>"; };
 		A059AD321FDCAF750041E164 /* PixelIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelIterator.h; sourceTree = "<group>"; };
 		A059AD331FDCAF750041E164 /* PrefManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrefManager.cpp; sourceTree = "<group>"; };
@@ -755,6 +758,7 @@
 				A059AD151FDCAF750041E164 /* ScreenManager */,
 				A059AD1C1FDCAF750041E164 /* Sound */,
 				A059AD211FDCAF750041E164 /* Util */,
+				C40E4593941B86C4051758E9 /* Net */,
 				A059ACEB1FDCAF750041E164 /* Application.cpp */,
 				A059ACEC1FDCAF750041E164 /* Application.h */,
 				A059ACED1FDCAF750041E164 /* ApplicationEventListener.cpp */,
@@ -875,6 +879,15 @@
 				A059AD201FDCAF750041E164 /* Sound.h */,
 			);
 			path = Sound;
+			sourceTree = "<group>";
+		};
+		C40E4593941B86C4051758E9 /* Net */ = {
+			isa = PBXGroup;
+			children = (
+				1804AADE6048F6F8D457EDB7 /* P2PTransport.cpp */,
+				D71E141E3FE09BB754DFCF5E /* P2PTransport.h */,
+			);
+			path = Net;
 			sourceTree = "<group>";
 		};
 		A059AD211FDCAF750041E164 /* Util */ = {
@@ -1757,6 +1770,7 @@
 				A059AE391FDCAF750041E164 /* Sonic.cpp in Sources */,
 				A059AE661FDCAF760041E164 /* SoundManager.cpp in Sources */,
 				A059AE0E1FDCAF750041E164 /* P2PManager.cpp in Sources */,
+				1079BB7DBFAA880F2D25D73A /* P2PTransport.cpp in Sources */,
 				A059ADF41FDCAF750041E164 /* AssetManager.cpp in Sources */,
 				A059AE4B1FDCAF760041E164 /* Global.cpp in Sources */,
 				A059AE3E1FDCAF750041E164 /* RayGun.cpp in Sources */,

@@ -133,6 +133,7 @@
 		A596F9B42651A25B00F182F0 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A596F9062651A25B00F182F0 /* Color.cpp */; };
 		A596F9B52651A25B00F182F0 /* HapticFeedback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A596F9072651A25B00F182F0 /* HapticFeedback.cpp */; };
 		A596F9B62651A25B00F182F0 /* P2PManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A596F9082651A25B00F182F0 /* P2PManager.cpp */; };
+		68CB3E22651E8A1C3820C2C6 /* P2PTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A08B1E0620AEA5980D8DF334 /* P2PTransport.cpp */; };
 		A596F9B72651A25B00F182F0 /* FileTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A596F90E2651A25B00F182F0 /* FileTools.cpp */; };
 		A596F9B82651A25B00F182F0 /* PixelIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A596F90F2651A25B00F182F0 /* PixelIterator.cpp */; };
 		A596F9B92651A25B00F182F0 /* Bitset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A596F9122651A25B00F182F0 /* Bitset.cpp */; };
@@ -595,6 +596,8 @@
 		A596F9032651A25B00F182F0 /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
 		A596F9042651A25B00F182F0 /* PrefManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrefManager.cpp; sourceTree = "<group>"; };
 		A596F9052651A25B00F182F0 /* P2PManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PManager.h; sourceTree = "<group>"; };
+		A08B1E0620AEA5980D8DF334 /* P2PTransport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2PTransport.cpp; sourceTree = "<group>"; };
+		D1E708A0CE4AEE9C13A44136 /* P2PTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PTransport.h; sourceTree = "<group>"; };
 		A596F9062651A25B00F182F0 /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
 		A596F9072651A25B00F182F0 /* HapticFeedback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HapticFeedback.cpp; sourceTree = "<group>"; };
 		A596F9082651A25B00F182F0 /* P2PManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = P2PManager.cpp; sourceTree = "<group>"; };
@@ -1089,6 +1092,7 @@
 				A596F9412651A25B00F182F0 /* Sound */,
 				A596F9352651A25B00F182F0 /* ScreenManager */,
 				A596F8F82651A25B00F182F0 /* Util */,
+				FC30D37923170FF3E732D665 /* Net */,
 				A596F9552651A25B00F182F0 /* forwards.h */,
 				A596F91B2651A25B00F182F0 /* Application.h */,
 				A596F93C2651A25B00F182F0 /* Application.cpp */,
@@ -1105,6 +1109,15 @@
 				A596F9222651A25B00F182F0 /* View.cpp */,
 			);
 			path = GameEngine;
+			sourceTree = "<group>";
+		};
+		FC30D37923170FF3E732D665 /* Net */ = {
+			isa = PBXGroup;
+			children = (
+				A08B1E0620AEA5980D8DF334 /* P2PTransport.cpp */,
+				D1E708A0CE4AEE9C13A44136 /* P2PTransport.h */,
+			);
+			path = Net;
 			sourceTree = "<group>";
 		};
 		A596F8F82651A25B00F182F0 /* Util */ = {
@@ -1786,6 +1799,7 @@
 				A596F9B22651A25B00F182F0 /* String.cpp in Sources */,
 				A596F9752651A25B00F182F0 /* Mario.cpp in Sources */,
 				A596F9B62651A25B00F182F0 /* P2PManager.cpp in Sources */,
+				68CB3E22651E8A1C3820C2C6 /* P2PTransport.cpp in Sources */,
 				A596F9A02651A25B00F182F0 /* lib_ge_ScreenManager.cpp in Sources */,
 				A596F9642651A25B00F182F0 /* WinnerScreen.cpp in Sources */,
 				A596F9842651A25B00F182F0 /* TogglePane.cpp in Sources */,

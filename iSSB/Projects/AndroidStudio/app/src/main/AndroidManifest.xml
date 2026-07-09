@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 	<uses-permission android:name="android.permission.VIBRATE" />
+	<!-- needed for local-WiFi peer-to-peer multiplayer (GameEngine::P2PManager / LANP2P_*) -->
+	<uses-permission android:name="android.permission.INTERNET" />
 
 	<!-- game is fully playable without an external controller, so don't let this filter out devices in the Play Store -->
 	<uses-feature android:name="android.hardware.gamepad" android:required="false" />

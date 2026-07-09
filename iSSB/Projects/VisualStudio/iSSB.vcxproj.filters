@@ -42,6 +42,9 @@
     <Filter Include="Source\GameEngine\Util">
       <UniqueIdentifier>{4191eb65-0319-4a59-a5d6-832c75ed04f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\GameEngine\Net">
+      <UniqueIdentifier>{fb32cb71-3c9d-461e-ac23-a148a4d4b73a}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source\ScriptModule\modules">
       <UniqueIdentifier>{ebcc7515-5df6-4171-bf65-b19af4fb96ac}</UniqueIdentifier>
     </Filter>
@@ -199,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\GameEngine\Util\Image.cpp">
       <Filter>Source\GameEngine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GameEngine\Net\P2PTransport.cpp">
+      <Filter>Source\GameEngine\Net</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\GameEngine\Util\P2PManager.cpp">
       <Filter>Source\GameEngine\Util</Filter>
@@ -597,6 +603,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\GameEngine\Util\Image.h">
       <Filter>Source\GameEngine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GameEngine\Net\P2PTransport.h">
+      <Filter>Source\GameEngine\Net</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\GameEngine\Util\P2PManager.h">
       <Filter>Source\GameEngine\Util</Filter>

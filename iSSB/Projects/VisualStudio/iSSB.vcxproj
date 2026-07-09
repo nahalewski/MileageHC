@@ -242,6 +242,7 @@ xcopy /y /s "..\..\Assets\Sounds" $(OutDir)Sounds</Command>
     <ClCompile Include="..\..\Source\GameEngine\Util\Font.cpp" />
     <ClCompile Include="..\..\Source\GameEngine\Util\HapticFeedback.cpp" />
     <ClCompile Include="..\..\Source\GameEngine\Util\Image.cpp" />
+    <ClCompile Include="..\..\Source\GameEngine\Net\P2PTransport.cpp" />
     <ClCompile Include="..\..\Source\GameEngine\Util\P2PManager.cpp" />
     <ClCompile Include="..\..\Source\GameEngine\Util\PixelIterator.cpp" />
     <ClCompile Include="..\..\Source\GameEngine\Util\PrefManager.cpp" />
@@ -381,6 +382,7 @@ xcopy /y /s "..\..\Assets\Sounds" $(OutDir)Sounds</Command>
     <ClInclude Include="..\..\Source\GameEngine\Util\Font.h" />
     <ClInclude Include="..\..\Source\GameEngine\Util\HapticFeedback.h" />
     <ClInclude Include="..\..\Source\GameEngine\Util\Image.h" />
+    <ClInclude Include="..\..\Source\GameEngine\Net\P2PTransport.h" />
     <ClInclude Include="..\..\Source\GameEngine\Util\P2PManager.h" />
     <ClInclude Include="..\..\Source\GameEngine\Util\PixelIterator.h" />
     <ClInclude Include="..\..\Source\GameEngine\Util\PrefManager.h" />

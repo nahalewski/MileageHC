@@ -3,7 +3,7 @@
 #include "ArrayList.h"
 #include "../Graphics/Graphics2D.h"
 #include "Bitset.h"
-#include <SDL_p2p.h>
+#include "../Net/P2PTransport.h"
 #include <mutex>
 
 #pragma once
@@ -54,7 +54,7 @@ namespace GameEngine
 	
 	class P2PRequest
 	{
-		friend void P2PManager_EventHandler(P2P_Event*event);
+		friend void P2PManager_EventHandler(LANP2P_Event*event);
 	private:
 		String peerID;
 		bool handled;
@@ -83,7 +83,7 @@ namespace GameEngine
 	
 	class P2PManager
 	{
-		friend void P2PManager_EventHandler(P2P_Event*event);
+		friend void P2PManager_EventHandler(LANP2P_Event*event);
 		friend int P2PManager_SendDataHandler(void*data);
 		friend class P2PRequest;
 	private:
@@ -98,7 +98,7 @@ namespace GameEngine
 		static std::mutex peers_mutex;
 		static String sessionID;
 		static P2PEventListener*eventListener;
-		static P2P_Session*session;
+		static LANP2P_Session*session;
 		
 		static bool pickerIsOpen;
 		

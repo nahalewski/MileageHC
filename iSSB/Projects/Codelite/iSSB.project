@@ -226,6 +226,10 @@
         <File Name="../../Source/GameEngine/Util/Bitset.cpp"/>
         <File Name="../../Source/GameEngine/Util/ArrayList.h"/>
       </VirtualDirectory>
+      <VirtualDirectory Name="Net">
+        <File Name="../../Source/GameEngine/Net/P2PTransport.h"/>
+        <File Name="../../Source/GameEngine/Net/P2PTransport.cpp"/>
+      </VirtualDirectory>
       <VirtualDirectory Name="Sound">
         <File Name="../../Source/GameEngine/Sound/Sound.h"/>
         <File Name="../../Source/GameEngine/Sound/Sound.cpp"/>

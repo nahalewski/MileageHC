@@ -565,11 +565,11 @@ namespace GameEngine
 			}
 			if(packet->mode == P2PManager::SENDDATA_RELIABLE)
 			{
-				P2P_sendDataToPeers(P2PManager::session, peerList, packet->peers.size(), packet->data.getData(), packet->data.length(), P2P_SENDDATA_RELIABLE);
+				LANP2P_sendDataToPeers(P2PManager::session, peerList, packet->peers.size(), packet->data.getData(), packet->data.length(), LANP2P_SENDDATA_RELIABLE);
 			}
 			else if(packet->mode == P2PManager::SENDDATA_UNRELIABLE)
 			{
-				P2P_sendDataToPeers(P2PManager::session, peerList, packet->peers.size(), packet->data.getData(), packet->data.length(), P2P_SENDDATA_UNRELIABLE);
+				LANP2P_sendDataToPeers(P2PManager::session, peerList, packet->peers.size(), packet->data.getData(), packet->data.length(), LANP2P_SENDDATA_UNRELIABLE);
 			}
 			delete[] peerList;
 		}
@@ -577,11 +577,11 @@ namespace GameEngine
 		{
 			if(packet->mode == P2PManager::SENDDATA_RELIABLE)
 			{
-				P2P_sendData(P2PManager::session, packet->data.getData(), packet->data.length(), P2P_SENDDATA_RELIABLE);
+				LANP2P_sendData(P2PManager::session, packet->data.getData(), packet->data.length(), LANP2P_SENDDATA_RELIABLE);
 			}
 			else if(packet->mode == P2PManager::SENDDATA_UNRELIABLE)
 			{
-				P2P_sendData(P2PManager::session, packet->data.getData(), packet->data.length(), P2P_SENDDATA_UNRELIABLE);
+				LANP2P_sendData(P2PManager::session, packet->data.getData(), packet->data.length(), LANP2P_SENDDATA_UNRELIABLE);
 			}
 			P2PManager::sendingData = false;
 		}
@@ -589,18 +589,18 @@ namespace GameEngine
 		return 0;
 	}
 	
-	void P2PManager_EventHandler(P2P_Event*event)
+	void P2PManager_EventHandler(LANP2P_Event*event)
 	{
 		if(P2PManager::eventListener != NULL)
 		{
 			switch(event->type)
 			{
-				case P2P_PEERCONNECTED:
+				case LANP2P_PEERCONNECTED:
 				{
 					char buffer[40];
-					P2P_getSelfID(P2PManager::session, buffer);
+					LANP2P_getSelfID(P2PManager::session, buffer);
 					P2PManager::selfInfo.id = buffer;
-					P2P_getSelfDisplayName(P2PManager::session, buffer);
+					LANP2P_getSelfDisplayName(P2PManager::session, buffer);
 					P2PManager::selfInfo.name = buffer;
 					P2PManager::Peer peer = {event->peer.peerID, event->peer.peerDisplayName};
 					P2PManager::peers_mutex.lock();
@@ -611,7 +611,7 @@ namespace GameEngine
 				}
 				break;
 				
-				case P2P_PEERDISCONNECTED:
+				case LANP2P_PEERDISCONNECTED:
 				{
 					String peerID = event->peer.peerID;
 					P2PManager::peers_mutex.lock();
@@ -628,7 +628,7 @@ namespace GameEngine
 				}
 				break;
 				
-				case P2P_PEERREQUESTEDCONNECTION:
+				case LANP2P_PEERREQUESTEDCONNECTION:
 				{
 					P2PRequest*request = new P2PRequest(event->peer.peerID);
 					P2PManager::eventListener->peerDidRequestConnection(request);
@@ -636,14 +636,14 @@ namespace GameEngine
 				}
 				break;
 				
-				case P2P_PICKERDIDCANCEL:
+				case LANP2P_PICKERDIDCANCEL:
 				{
 					P2PManager::pickerIsOpen = false;
 					P2PManager::eventListener->pickerDidCancel();
 				}
 				break;
 				
-				case P2P_RECIEVEDDATA:
+				case LANP2P_RECIEVEDDATA:
 				{
 					P2PManager::eventListener->didRecieveData(event->peer.peerID, event->data.data, event->data.size);
 				}
@@ -673,7 +673,7 @@ namespace GameEngine
 	{
 		if(!handled)
 		{
-			SDL_bool success = P2P_acceptConnectionRequest(P2PManager::session, peerID);
+			SDL_bool success = LANP2P_acceptConnectionRequest(P2PManager::session, peerID);
 			if(success)
 			{
 				handled = true;
@@ -690,7 +690,7 @@ namespace GameEngine
 	{
 		if(!handled)
 		{
-			P2P_denyConnectionRequest(P2PManager::session, peerID);
+			LANP2P_denyConnectionRequest(P2PManager::session, peerID);
 			handled = true;
 			connected = false;
 		}
@@ -736,14 +736,14 @@ namespace GameEngine
 	std::mutex P2PManager::peers_mutex;
 	P2PEventListener*P2PManager::eventListener = NULL;
 	String P2PManager::sessionID = "com.yourcompany.gameengine";
-	P2P_Session* P2PManager::session = NULL;
+	LANP2P_Session* P2PManager::session = NULL;
 	bool P2PManager::pickerIsOpen = false;
 	bool P2PManager::copyingPacket = false;
 	bool P2PManager::sendingData = false;
 	
 	void P2PManager::Update(long gameTime)
 	{
-		if(session!=NULL && P2P_isConnected(session))
+		if(session!=NULL && LANP2P_isConnected(session))
 		{
 			updateAppEvents();
 		}
@@ -768,11 +768,11 @@ namespace GameEngine
 	{
 		if(session==NULL)
 		{
-			session = P2P_createSession();
+			session = LANP2P_createSession();
 			if(session == NULL)
 			{
-				P2P_Event event;
-				event.type = P2P_PICKERDIDCANCEL;
+				LANP2P_Event event;
+				event.type = LANP2P_PICKERDIDCANCEL;
 				event.peer.peerID = NULL;
 				event.peer.peerDisplayName = NULL;
 				event.data.data = NULL;
@@ -781,15 +781,15 @@ namespace GameEngine
 				return false;
 			}
 
-			P2P_setEventHandler(session, &P2PManager_EventHandler);
+			LANP2P_setEventHandler(session, &P2PManager_EventHandler);
 			pickerIsOpen = true;
-			P2P_searchForPeers(session, sessionID);
+			LANP2P_searchForPeers(session, sessionID);
 			while(pickerIsOpen)
 			{
 				SDL_Delay(30);
 				updateAppEvents();
 			}
-			if(P2P_isConnected(session))
+			if(LANP2P_isConnected(session))
 			{
 				return true;
 			}
@@ -801,11 +801,11 @@ namespace GameEngine
 	{
 		if(session==NULL)
 		{
-			session = P2P_createSession();
+			session = LANP2P_createSession();
 			if(session == NULL)
 			{
-				P2P_Event event;
-				event.type = P2P_PICKERDIDCANCEL;
+				LANP2P_Event event;
+				event.type = LANP2P_PICKERDIDCANCEL;
 				event.peer.peerID = NULL;
 				event.peer.peerDisplayName = NULL;
 				event.data.data = NULL;
@@ -814,15 +814,15 @@ namespace GameEngine
 				return false;
 			}
 
-			P2P_setEventHandler(session, &P2PManager_EventHandler);
+			LANP2P_setEventHandler(session, &P2PManager_EventHandler);
 			pickerIsOpen = true;
-			P2P_searchForClients(session, sessionID);
+			LANP2P_searchForClients(session, sessionID);
 			while(pickerIsOpen)
 			{
 				SDL_Delay(30);
 				updateAppEvents();
 			}
-			if(P2P_isConnected(session))
+			if(LANP2P_isConnected(session))
 			{
 				return true;
 			}
@@ -834,11 +834,11 @@ namespace GameEngine
 	{
 		if(session==NULL)
 		{
-			session = P2P_createSession();
+			session = LANP2P_createSession();
 			if(session == NULL)
 			{
-				P2P_Event event;
-				event.type = P2P_PICKERDIDCANCEL;
+				LANP2P_Event event;
+				event.type = LANP2P_PICKERDIDCANCEL;
 				event.peer.peerID = NULL;
 				event.peer.peerDisplayName = NULL;
 				event.data.data = NULL;
@@ -847,15 +847,15 @@ namespace GameEngine
 				return false;
 			}
 
-			P2P_setEventHandler(session, &P2PManager_EventHandler);
+			LANP2P_setEventHandler(session, &P2PManager_EventHandler);
 			pickerIsOpen = true;
-			P2P_searchForServer(session, sessionID);
+			LANP2P_searchForServer(session, sessionID);
 			while(pickerIsOpen)
 			{
 				SDL_Delay(30);
 				updateAppEvents();
 			}
-			if(P2P_isConnected(session))
+			if(LANP2P_isConnected(session))
 			{
 				return true;
 			}
@@ -865,7 +865,7 @@ namespace GameEngine
 	
 	bool P2PManager::isConnected()
 	{
-		if(session!=NULL && P2P_isConnected(session))
+		if(session!=NULL && LANP2P_isConnected(session))
 		{
 			return true;
 		}
@@ -874,7 +874,7 @@ namespace GameEngine
 	
 	bool P2PManager::isConnectedToPeer(const String&peerID)
 	{
-		if(session!=NULL && P2P_isConnectedToPeer(session, peerID))
+		if(session!=NULL && LANP2P_isConnectedToPeer(session, peerID))
 		{
 			return true;
 		}
@@ -883,9 +883,9 @@ namespace GameEngine
 	
 	void P2PManager::disconnectPeer(const String&peerID)
 	{
-		if(session!=NULL && P2P_isConnectedToPeer(session, peerID))
+		if(session!=NULL && LANP2P_isConnectedToPeer(session, peerID))
 		{
-			P2P_disconnectPeer(session, peerID);
+			LANP2P_disconnectPeer(session, peerID);
 		}
 	}
 	
@@ -893,8 +893,8 @@ namespace GameEngine
 	{
 		if(session!=NULL)
 		{
-			P2P_endSession(session);
-			P2P_destroySession(session);
+			LANP2P_endSession(session);
+			LANP2P_destroySession(session);
 			session = NULL;
 		}
 	}
@@ -936,7 +936,7 @@ namespace GameEngine
 		}
 		peers_mutex.unlock();
 		char buffer[40];
-		P2P_getPeerDisplayName(session, (char*)peerID, buffer);
+		LANP2P_getPeerDisplayName(session, (char*)peerID, buffer);
 		String displayName = buffer;
 		return displayName;
 	}
@@ -959,7 +959,7 @@ namespace GameEngine
 		
 		if(sendDataMode == SENDDATA_RELIABLE)
 		{
-			P2P_sendData(session, data, size, P2P_SENDDATA_RELIABLE);
+			LANP2P_sendData(session, data, size, LANP2P_SENDDATA_RELIABLE);
 		}
 		else if(sendDataMode == SENDDATA_UNRELIABLE)
 		{
@@ -995,7 +995,7 @@ namespace GameEngine
 			{
 				peerList[i] = (char*)peers.get(i);
 			}
-			P2P_sendDataToPeers(session, peerList, peers.size(), data, size, P2P_SENDDATA_RELIABLE);
+			LANP2P_sendDataToPeers(session, peerList, peers.size(), data, size, LANP2P_SENDDATA_RELIABLE);
 		}
 		else if(sendDataMode == SENDDATA_UNRELIABLE)
 		{
